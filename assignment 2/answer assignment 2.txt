@@ -1,0 +1,51 @@
+1:
+find id of artist quenn (51)
+Artist.where('name = ?', 'Queen').ids)
+
+find albums from this artist:
+Album.where('artist_id = ?', 51)
+
+or Album.where('artist_id = ?', Artist.where('name = ?', 'Queen').ids)
+
+2:
+find id from Protected MPEG-4 video file (3)
+MediaType.where('name = ?', 'Protected MPEG-4 video file').ids
+
+find and count tracks with this MediaType
+Track.where('media_type_id = ?', MediaType.where('name = ?', 'Protected MPEG-4 video file').ids).count
+
+3:
+find if from genre hip hop (17)
+Genre.where('name = ?', 'Hip Hop/Rap')
+
+4:
+fidn and count tracks with hip hop genre
+Track.where('genre_id = ?', Genre.where('name = ?', 'Hip
+Hop/Rap').ids).count
+
+5:
+find and sum all the milliseconds from tracks
+Track.sum(:milliseconds)
+
+6:
+find MPEGtype (1)
+MediaType.where('name = ?', 'MPEG audio file').ids
+
+find the tracks and get the maximum
+Track.where('media_type_id = ?', MediaType.where('name = ?', 'MPEG audio file').ids).maximum(:unit_price)
+
+7:
+Track.where('media_type_id = ?', 1).order(:unit_price).limit(1).pluck(:name)
+
+8:
+Artist.order(created_at: :desc).last(2).pluck(:name)
+
+9:
+Track.where('unit_price = ?', Track.minimum('unit_price')).pluck(:name)
+
+10:
+Genre.find_by('name = ? ', 'Electronica/Dance').id
+    MediaType.find_by('name = ? ', 'MPEG audio file').id
+
+11:
+Track.where(genre_id: Genre.find_by('name = ?', 'Electronica/Dance').id, media_type_id: MediaType.find_by('name = ? ', 'MPEG audio file').id)
